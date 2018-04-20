@@ -89,14 +89,14 @@ class BaseModel(object):
                 if config.save_eval_result_as_image:
                     image_file = batch[l]
                     image_name = image_file.split(os.sep)[-1]
-                    image_name = os.path.splitext(image_name)[0]
-                    image_num = image_name[-1]
+                    image_name = os.path.basename(image_name)     #split off filename from path 
+                    image_name = os.path.splitext(image_name)[0]  #split off filename from extension
                     img = plt.imread(image_file)
                     plt.imshow(img)
                     plt.axis('off')
                     plt.title(caption)
                     plt.savefig(os.path.join(config.eval_result_dir,
-                                             image_num+'_result.jpg'))
+                                             image_name+'_result.jpg'))
 
         fp = open(config.eval_result_file, 'wb')
         json.dump(results, fp)
@@ -136,14 +136,14 @@ class BaseModel(object):
                 # Save the result in an image file
                 image_file = batch[l]
                 image_name = image_file.split(os.sep)[-1]
-                image_name = os.path.splitext(image_name)[0]
-                image_num = image_name[-1]
+                image_name = os.path.basename(image_name)     #split off filename from path 
+                image_name = os.path.splitext(image_name)[0]  #split off filename from extension
                 img = plt.imread(image_file)
                 plt.imshow(img)
                 plt.axis('off')
                 plt.title(caption)
                 plt.savefig(os.path.join(config.test_result_dir,
-                                         image_num+'_result.jpg'))
+                                         image_name+'_result.jpg'))
 
         # Save the captions to a file
         results = pd.DataFrame({'image_files':test_data.image_files,
